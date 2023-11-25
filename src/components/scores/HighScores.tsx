@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import HighScore from "./HighScore";
 import { getScoresOfMode } from "../../api-requests/scoreRequests";
+import AddScoreForm from "../forms/AddScoreForm";
 
 const DUMMY_LEADERS = [
     {
@@ -23,6 +24,9 @@ export default function HighScores() {
                     return <HighScore leader={leader} index={index} key={index} />;
                 })}
             </ul>
+            <div className="w-[100%] flex justify-center">
+                <AddScoreForm />
+            </div>
         </div>
     );
 }
