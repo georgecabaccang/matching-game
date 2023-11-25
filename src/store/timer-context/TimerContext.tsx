@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useRef, useState } from "react";
 
 interface ITimerContext {
+    totalTimeInMilliseconds: number;
     isGameOver: boolean;
     startTimer: () => void;
     stopTimer: () => void;
@@ -8,6 +9,7 @@ interface ITimerContext {
 }
 
 export const TimerContext = createContext<ITimerContext>({
+    totalTimeInMilliseconds: 0,
     isGameOver: false,
     startTimer: () => {},
     stopTimer: () => {},
@@ -21,6 +23,7 @@ export const TimerProvider = ({ children }: { children: ReactNode }) => {
         minutes: 0,
     });
     const [isGameOver, setIsGameOver] = useState(false);
+    const [totalTimeInMilliseconds, setTotalTimeInMilliseconds] = useState(0);
 
     const intervalId = useRef(0);
     const timerStarted = useRef(false);
@@ -62,9 +65,16 @@ export const TimerProvider = ({ children }: { children: ReactNode }) => {
     const stopTimer = () => {
         clearInterval(intervalId.current);
         setIsGameOver(true);
+
+        // convert all time into milliseconds
+        const minuteToSeconds = time.minutes * 60;
+        const totalSeconds = minuteToSeconds + time.seconds;
+        const totalMilliseconds = totalSeconds * 1000 + time.milliseconds;
+        setTotalTimeInMilliseconds(totalMilliseconds);
     };
 
     const timerValues = {
+        totalTimeInMilliseconds: totalTimeInMilliseconds,
         isGameOver: isGameOver,
         startTimer: startTimer,
         stopTimer: stopTimer,
