@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useRef, useState } from "react";
 
-interface ITimerContext {
+export interface ITimerContext {
     totalTimeInMilliseconds: number;
     isGameOver: boolean;
     startTimer: () => void;

@@ -35,8 +35,8 @@ export const GameProvider = (props: { children: ReactNode }) => {
 
     const sizeChoice = [
         {
-            label: "16 Tiles",
-            value: 16,
+            label: "12 Tiles",
+            value: 12,
         },
         {
             label: "24 Tiles",

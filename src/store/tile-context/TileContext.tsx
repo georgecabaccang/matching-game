@@ -5,10 +5,10 @@ interface ITile {
     id: string;
     img: string;
     matchingId: number;
-    color?: string;
+    color: string;
 }
 
-interface ITileContext {
+export interface ITileContext {
     givenTiles: ITile[];
     shuffleTiles: () => Promise<boolean>;
     generateTiles: (mode: string, size: number) => void;
@@ -44,14 +44,18 @@ export const TileProvider = (props: { children: ReactNode }) => {
     // get random color from COLORS
     const getColor = (size: number) => {
         const indexOfColor = generateRandomIndex(size + 1);
-        return COLORS[indexOfColor];
+        return { retrievedColor: COLORS[indexOfColor], indexOfColor };
     };
 
     const generateTiles = (mode: string, size: number) => {
         for (let i = 1; i < size / 2 + 1; i++) {
             let color = "";
             if (mode === "colors") {
-                color = getColor(size);
+                const { retrievedColor, indexOfColor } = getColor(size);
+                color = retrievedColor;
+
+                // remove color from array to prevent duplications
+                COLORS.splice(indexOfColor, 1);
             }
 
             // create newTile with properties

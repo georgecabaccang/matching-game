@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect, useContext } from "react";
 import { TimerContext } from "../../store/timer-context/TimerContext";
+import { GameContext } from "../../store/game-context/GameContext";
 
 export interface ITile {
-    id: number;
-    name: string;
+    id: string;
     img: string;
     matchingId: number;
+    color: string;
 }
 
 export default function Tile({
@@ -22,6 +23,7 @@ export default function Tile({
     const [showTile, setShowTile] = useState(false);
     const isTileShown = useRef(false);
 
+    const gameContext = useContext(GameContext);
     const timerContext = useContext(TimerContext);
 
     const changeClickStatus = () => {
@@ -48,15 +50,27 @@ export default function Tile({
         }
     };
 
+    const isNumbersGameMode = gameContext.gameMode === "numbers";
     return (
         <div
-            className={`flex justify-center items-center min-h-full min-w-full rounded-md cursor-pointer transition duration-100 ${
-                showTile ? "bg-blue-200" : ""
-            } ${disabled ? "pointer-events-none" : ""}`}
+            className={`flex justify-center items-center h-[100%] w-[100%] rounded-md cursor-pointer transition duration-100 
+            ${showTile && "bg-blue-200"} ${disabled && "pointer-events-none"}`}
             onClick={handleTileClick}
         >
-            <div className={`transition duration-100 ${showTile ? "visible" : "invisible"}`}>
-                {showTile && tileDetails.matchingId}
+            <div
+                className={`transition duration-100 w-[100%] h-[100%] 
+                ${showTile ? "visible" : "invisible"}`}
+            >
+                {showTile && isNumbersGameMode ? (
+                    <div className="flex justify-center items-center w-[100%] h-[100%] font-semibold text-[2rem] ">
+                        {tileDetails.matchingId}
+                    </div>
+                ) : (
+                    <div
+                        style={{ background: tileDetails.color }}
+                        className={`w-[100%] h-[100%] rounded-md border-none`}
+                    ></div>
+                )}
             </div>
         </div>
     );

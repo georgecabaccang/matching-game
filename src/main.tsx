@@ -9,11 +9,11 @@ import { GameProvider } from "./store/game-context/GameContext.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <GameProvider>
-            <TimerProvider>
-                <TileProvider>
+            <TileProvider>
+                <TimerProvider>
                     <App />
-                </TileProvider>
-            </TimerProvider>
+                </TimerProvider>
+            </TileProvider>
         </GameProvider>
     </React.StrictMode>
 );
