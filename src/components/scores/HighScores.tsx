@@ -84,7 +84,9 @@ export default function HighScores({
     const updateCurrentHighScores = (newHighScore: IScores) => {
         if (highScores) {
             // delete last stop of top 10
-            deleteLastSpotOfTopTen(highScores[highScores.length - 1]._id);
+            if (highScores.length > 1) {
+                deleteLastSpotOfTopTen(highScores[highScores.length - 1]._id);
+            }
         }
 
         setIsInTopTen(false);
