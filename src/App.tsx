@@ -57,7 +57,13 @@ function App() {
                     </div>
                 )}
                 {/* if game is over, display */}
-                {timerContext.isGameOver && <HighScores />}
+                {timerContext.isGameOver && (
+                    <HighScores
+                        timeOfUser={timerContext.totalTimeInMilliseconds}
+                        gameMode={gameContext.gameMode}
+                        gameSize={gameContext.gameSize}
+                    />
+                )}
             </div>
         </>
     );
