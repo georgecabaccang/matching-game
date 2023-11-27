@@ -83,7 +83,6 @@ export const TimerProvider = ({ children }: { children: ReactNode }) => {
         setIsGameOver(false);
         setTime(timeIntialValues);
         setTotalTimeInMilliseconds(0);
-        console.log("reset timer");
     };
 
     const timerValues = {

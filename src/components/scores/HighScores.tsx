@@ -50,6 +50,8 @@ export default function HighScores({
     // generate blank divs for placeholders when top 10 is not full
     const generateBlankDivs = () => {
         if (highScores) {
+            // setPlaceHolderDivs to be empty if top 10 is present
+            if (highScores.length === 10) return setPlaceHolderDivs([]);
             const numberOfDivs = 10 - highScores.length;
 
             const toBePushed: any[] = [];
