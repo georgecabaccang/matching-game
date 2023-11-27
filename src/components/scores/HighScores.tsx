@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import HighScore from "./HighScore";
-import { getScoresOfMode } from "../../api-requests/scoreRequests";
+import { deleteScore, getScoresOfMode } from "../../api-requests/scoreRequests";
 import AddScoreForm from "../forms/AddScoreForm";
 
 export interface IScores {
@@ -77,7 +77,16 @@ export default function HighScores({
         }
     };
 
+    const deleteLastSpotOfTopTen = async (scoreId: string) => {
+        await deleteScore(scoreId, gameMode, gameSize);
+    };
+
     const updateCurrentHighScores = (newHighScore: IScores) => {
+        if (highScores) {
+            // delete last stop of top 10
+            deleteLastSpotOfTopTen(highScores[highScores.length - 1]._id);
+        }
+
         setIsInTopTen(false);
         getScores();
         setNewHighScore(newHighScore);
