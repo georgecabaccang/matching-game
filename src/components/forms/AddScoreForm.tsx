@@ -1,9 +1,18 @@
-import { useContext, useRef } from "react";
-import { TimerContext } from "../../store/timer-context/TimerContext";
+import { useRef } from "react";
 import { addScore } from "../../api-requests/scoreRequests";
+import { IScores } from "../scores/HighScores";
 
-export default function AddScoreForm() {
-    const timerContext = useContext(TimerContext);
+export default function AddScoreForm({
+    gameMode,
+    gameSize,
+    timeOfUser,
+    updateCurrentHighScores,
+}: {
+    gameMode: string;
+    gameSize: number;
+    timeOfUser: number;
+    updateCurrentHighScores: (payload: IScores) => void;
+}) {
     const nameRef = useRef<HTMLInputElement>(null);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -11,11 +20,13 @@ export default function AddScoreForm() {
 
         const payload = {
             name: nameRef.current!.value,
-            time: timerContext.totalTimeInMilliseconds,
-            mode: "numbers",
-            size: 24,
+            time: timeOfUser,
+            mode: gameMode,
+            size: gameSize,
         };
-        await addScore(payload);
+
+        const newHighScore = (await addScore(payload)) as IScores;
+        updateCurrentHighScores(newHighScore);
     };
 
     return (
@@ -30,10 +41,10 @@ export default function AddScoreForm() {
                 type="text"
                 autoFocus
                 ref={nameRef}
-                maxLength={20}
+                maxLength={10}
                 className="px-[4rem] overflow-x-visible bg-transparent border-b-2 w-[100%] text-center border-blue-200 focus:outline-none py-2"
             />
-            <span className="text-[0.6rem] mt-2">Max of 20 Characters</span>
+            <span className="text-[0.6rem] mt-2">Max of 10 Characters</span>
         </form>
     );
 }

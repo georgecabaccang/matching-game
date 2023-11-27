@@ -1,11 +1,12 @@
 import { ReactNode, createContext, useRef, useState } from "react";
 
-interface ITimerContext {
+export interface ITimerContext {
     totalTimeInMilliseconds: number;
     isGameOver: boolean;
     startTimer: () => void;
     stopTimer: () => void;
     time: { milliseconds: number; seconds: number; minutes: number };
+    resetTimerValues: () => void;
 }
 
 export const TimerContext = createContext<ITimerContext>({
@@ -14,14 +15,17 @@ export const TimerContext = createContext<ITimerContext>({
     startTimer: () => {},
     stopTimer: () => {},
     time: { milliseconds: 0, seconds: 0, minutes: 0 },
+    resetTimerValues: () => {},
 });
 
+const timeIntialValues = {
+    milliseconds: 0,
+    seconds: 0,
+    minutes: 0,
+};
+
 export const TimerProvider = ({ children }: { children: ReactNode }) => {
-    const [time, setTime] = useState({
-        milliseconds: 0,
-        seconds: 0,
-        minutes: 0,
-    });
+    const [time, setTime] = useState(timeIntialValues);
     const [isGameOver, setIsGameOver] = useState(false);
     const [totalTimeInMilliseconds, setTotalTimeInMilliseconds] = useState(0);
 
@@ -73,12 +77,22 @@ export const TimerProvider = ({ children }: { children: ReactNode }) => {
         setTotalTimeInMilliseconds(totalMilliseconds);
     };
 
+    const resetTimerValues = () => {
+        clearInterval(intervalId.current);
+        timerStarted.current = false;
+        setIsGameOver(false);
+        setTime(timeIntialValues);
+        setTotalTimeInMilliseconds(0);
+        console.log("reset timer");
+    };
+
     const timerValues = {
         totalTimeInMilliseconds: totalTimeInMilliseconds,
         isGameOver: isGameOver,
         startTimer: startTimer,
         stopTimer: stopTimer,
         time: time,
+        resetTimerValues: resetTimerValues,
     };
 
     return <TimerContext.Provider value={timerValues}>{children}</TimerContext.Provider>;
