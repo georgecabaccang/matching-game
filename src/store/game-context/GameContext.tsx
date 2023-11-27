@@ -1,24 +1,31 @@
 import { Dispatch, ReactNode, SetStateAction, createContext, useState } from "react";
 
 interface IGameContext {
+    isGameSet: boolean;
     gameMode: string;
     gameSize: number;
+    setIsGameSet: Dispatch<SetStateAction<boolean>>;
     setGameMode: Dispatch<SetStateAction<string>>;
     setGameSize: Dispatch<SetStateAction<number>>;
     modeChoice: { label: string; value: string }[];
     sizeChoice: { label: string; value: number }[];
+    resetGameSettings: () => void;
 }
 
 export const GameContext = createContext<IGameContext>({
+    isGameSet: false,
     gameMode: "",
     gameSize: 0,
+    setIsGameSet: () => {},
     setGameMode: () => {},
     setGameSize: () => {},
     modeChoice: [],
     sizeChoice: [],
+    resetGameSettings: () => {},
 });
 
 export const GameProvider = (props: { children: ReactNode }) => {
+    const [isGameSet, setIsGameSet] = useState(false);
     const [gameMode, setGameMode] = useState("");
     const [gameSize, setGameSize] = useState(0);
 
@@ -44,13 +51,22 @@ export const GameProvider = (props: { children: ReactNode }) => {
         },
     ];
 
+    const resetGameSettings = () => {
+        setIsGameSet(false);
+        setGameMode("");
+        setGameSize(0);
+    };
+
     const GameContextValues: IGameContext = {
+        isGameSet: isGameSet,
         gameMode: gameMode,
         gameSize: gameSize,
+        setIsGameSet: setIsGameSet,
         setGameMode: setGameMode,
         setGameSize: setGameSize,
         modeChoice: modeChoice,
         sizeChoice: sizeChoice,
+        resetGameSettings: resetGameSettings,
     };
 
     return <GameContext.Provider value={GameContextValues}>{props.children}</GameContext.Provider>;

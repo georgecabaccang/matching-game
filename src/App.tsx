@@ -8,18 +8,21 @@ import FullScreenModal from "./components/utils/modals/FullScreenModal";
 import { GameContext } from "./store/game-context/GameContext";
 
 function App() {
-    const [isGameSet, setIsGameSet] = useState(false);
-
     const tileContext = useContext(TileContext);
     const timerContext = useContext(TimerContext);
     const gameContext = useContext(GameContext);
 
     useEffect(() => {
         if (gameContext.gameMode && gameContext.gameSize) {
-            setIsGameSet(true);
+            gameContext.setIsGameSet(true);
             tileContext.generateTiles(gameContext.gameMode, gameContext.gameSize);
         }
     }, [gameContext.gameMode, gameContext.gameSize]);
+
+    const restartGame = () => {
+        gameContext.resetGameSettings();
+        timerContext.resetTimerValues();
+    };
 
     // conditional props to pass to FullScreenModal component
     const showBack = gameContext.gameMode ? true : false;
@@ -33,7 +36,7 @@ function App() {
 
     return (
         <>
-            {!isGameSet && (
+            {!gameContext.isGameSet && (
                 <FullScreenModal
                     choices={choicesToPass}
                     setStateAction={actionToPass}
@@ -64,6 +67,11 @@ function App() {
                         gameSize={gameContext.gameSize}
                     />
                 )}
+            </div>
+            <div className="w-[100%] h-[100%] ">
+                <button type="button" onClick={restartGame}>
+                    Restart Game
+                </button>
             </div>
         </>
     );

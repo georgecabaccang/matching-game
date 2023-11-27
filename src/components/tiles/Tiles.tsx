@@ -3,6 +3,7 @@ import TileCard from "../../ui/TileCard";
 import Tile from "./Tile";
 import { TileContext } from "../../store/tile-context/TileContext";
 import { TimerContext } from "../../store/timer-context/TimerContext";
+import { GameContext } from "../../store/game-context/GameContext";
 
 export default function Tiles() {
     const [isLoading, setIsLoading] = useState(true);
@@ -12,6 +13,7 @@ export default function Tiles() {
 
     const count = useRef(0);
 
+    const gameContext = useContext(GameContext);
     const tileContext = useContext(TileContext);
     const timerContext = useContext(TimerContext);
 
@@ -27,6 +29,11 @@ export default function Tiles() {
         checkShuffledTiles();
     }, []);
     // -----------------------------------------------------------
+
+    // resets matched pairs when restarting the game
+    useEffect(() => {
+        setMatchedPairs([]);
+    }, [gameContext.gameMode]);
 
     const firstMatch = useRef(0);
     const secondMatch = useRef(0);

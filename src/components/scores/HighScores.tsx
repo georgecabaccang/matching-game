@@ -47,6 +47,7 @@ export default function HighScores({
         }
     };
 
+    // generate blank divs for placeholders when top 10 is not full
     const generateBlankDivs = () => {
         if (highScores) {
             const numberOfDivs = 10 - highScores.length;

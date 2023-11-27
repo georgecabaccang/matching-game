@@ -28,13 +28,13 @@ export const TileProvider = (props: { children: ReactNode }) => {
     const givenTiles: ITile[] = [];
 
     const generateRandomIndex = (maxLimit: number) => {
-        const index = Math.random() * maxLimit;
+        const index = Math.random() * maxLimit + 1;
         return Math.floor(index);
     };
 
     const shuffleTiles = async () => {
         for (let i = 0; i < givenTiles.length; i++) {
-            const indexOfTile = generateRandomIndex(givenTiles.length + 1);
+            const indexOfTile = generateRandomIndex(givenTiles.length);
             if (!givenTiles[indexOfTile]) continue;
             [givenTiles[i], givenTiles[indexOfTile]] = [givenTiles[indexOfTile], givenTiles[i]];
         }
@@ -43,19 +43,23 @@ export const TileProvider = (props: { children: ReactNode }) => {
 
     // get random color from COLORS
     const getColor = (size: number) => {
-        const indexOfColor = generateRandomIndex(size + 1);
-        return { retrievedColor: COLORS[indexOfColor], indexOfColor };
+        const indexOfColor = generateRandomIndex(size);
+        const retrievedColor = COLORS[indexOfColor];
+        // remove color from array to prevent duplications
+        COLORS.splice(indexOfColor, 1);
+
+        // return color
+        return retrievedColor;
     };
 
     const generateTiles = (mode: string, size: number) => {
+        givenTiles.splice(0, givenTiles.length);
+        console.log(givenTiles.length);
         for (let i = 1; i < size / 2 + 1; i++) {
             let color = "";
             if (mode === "colors") {
-                const { retrievedColor, indexOfColor } = getColor(size);
+                const retrievedColor = getColor(size);
                 color = retrievedColor;
-
-                // remove color from array to prevent duplications
-                COLORS.splice(indexOfColor, 1);
             }
 
             // create newTile with properties
