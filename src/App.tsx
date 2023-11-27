@@ -68,11 +68,17 @@ function App() {
                     />
                 )}
             </div>
-            <div className="w-[100%] h-[100%] ">
-                <button type="button" onClick={restartGame}>
-                    Restart Game
-                </button>
-            </div>
+            {gameContext.isGameSet && (
+                <div className="w-auto h-auto absolute top-10 right-10">
+                    <button
+                        type="button"
+                        className="bg-blue-300 rounded-md px-3 py-1 hover:bg-blue-400 hover:scale-95 shadow-md hover:shadow-none transition duration-75 font-semibold hover:font-normal"
+                        onClick={restartGame}
+                    >
+                        Restart Game
+                    </button>
+                </div>
+            )}
         </>
     );
 }

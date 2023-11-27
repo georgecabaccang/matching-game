@@ -54,7 +54,6 @@ export const TileProvider = (props: { children: ReactNode }) => {
 
     const generateTiles = (mode: string, size: number) => {
         givenTiles.splice(0, givenTiles.length);
-        console.log(givenTiles.length);
         for (let i = 1; i < size / 2 + 1; i++) {
             let color = "";
             if (mode === "colors") {

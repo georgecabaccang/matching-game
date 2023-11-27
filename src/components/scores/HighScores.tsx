@@ -52,7 +52,6 @@ export default function HighScores({
         if (highScores) {
             // setPlaceHolderDivs to be empty if top 10 is present
             if (highScores.length === 10) return setPlaceHolderDivs([]);
-            console.log(highScores.length);
             const numberOfDivs = 10 - highScores.length;
 
             const toBePushed: any[] = [];
