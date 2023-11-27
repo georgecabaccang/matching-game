@@ -1,5 +1,5 @@
 import Tiles from "./components/tiles/Tiles";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { TileContext } from "./store/tile-context/TileContext";
 import Timer from "./components/timer/Timer";
 import { TimerContext } from "./store/timer-context/TimerContext";

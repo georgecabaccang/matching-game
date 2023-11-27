@@ -25,3 +25,15 @@ export const addScore = async (payload: {
         return data as IScores;
     } catch (error) {}
 };
+
+export const deleteScore = async (payload: {
+    name: string;
+    time: number;
+    mode: string;
+    size: number;
+}) => {
+    try {
+        const { data } = await axios.post(`${apiURL}/scores/add-score`, { payload });
+        return data as IScores;
+    } catch (error) {}
+};
