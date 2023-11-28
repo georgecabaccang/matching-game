@@ -46,7 +46,7 @@ function App() {
                     backAction={backAction}
                 />
             )}
-            <div className="w-[100vw] h-[100vh] flex justify-center items-center bg-blue-50 flex-col">
+            <div className="w-[100vw] h-[100vh] flex justify-center items-center bg-blue-50 flex-col xl:pt-20">
                 <div
                     className={`w-[100%] h-[50%] flex justify-center items-center transition duration-300 
                     ${timerContext.isGameOver ? "scale-150" : "scale-100"}`}
@@ -55,7 +55,9 @@ function App() {
                 </div>
                 {/* if game is not over, display */}
                 {!timerContext.isGameOver && (
-                    <div className={`w-[100%] h-[100%] flex justify-center items-center`}>
+                    <div
+                        className={`w-[100%] h-[100%] -mt-[8rem] flex justify-center items-center`}
+                    >
                         <Tiles />
                     </div>
                 )}
