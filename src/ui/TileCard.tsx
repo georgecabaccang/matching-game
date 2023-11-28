@@ -1,6 +1,11 @@
 import { ReactNode } from "react";
 import { ITile } from "../components/tiles/Tile";
-import { tilesCardSize12, tilesCardSize24 } from "../components/utils/static-helpers/break-points";
+import {
+    tilesCardSize12,
+    tilesCardSize16,
+    tilesCardSize20,
+    tilesCardSize24,
+} from "../components/utils/static-helpers/break-points";
 
 interface ITileCardProps {
     children: ReactNode;
@@ -22,6 +27,12 @@ export default function TileCard({
     const gameSize12 =
         gameSize === 12 &&
         `${tilesCardSize12.xxxs} ${tilesCardSize12.xxs} ${tilesCardSize12.xs} ${tilesCardSize12.sm} ${tilesCardSize12.md} ${tilesCardSize12.lg} ${tilesCardSize12.xl} ${tilesCardSize12.xxl} ${tilesCardSize12.xxxl}`;
+    const gameSize16 =
+        gameSize === 16 &&
+        `${tilesCardSize16.xxxs} ${tilesCardSize16.xxs} ${tilesCardSize16.xs} ${tilesCardSize16.sm} ${tilesCardSize16.md} ${tilesCardSize16.lg} ${tilesCardSize16.xl} ${tilesCardSize16.xxl} ${tilesCardSize16.xxxl}`;
+    const gameSize20 =
+        gameSize === 20 &&
+        `${tilesCardSize20.xxxs} ${tilesCardSize20.xxs} ${tilesCardSize20.xs} ${tilesCardSize20.sm} ${tilesCardSize20.md} ${tilesCardSize20.lg} ${tilesCardSize20.xl} ${tilesCardSize20.xxl} ${tilesCardSize20.xxxl}`;
     const gameSize24 =
         gameSize === 24 &&
         `${tilesCardSize24.xxxs} ${tilesCardSize24.xxs} ${tilesCardSize24.xs} ${tilesCardSize24.sm} ${tilesCardSize24.md} ${tilesCardSize24.lg} ${tilesCardSize24.xl} ${tilesCardSize24.xxl} ${tilesCardSize24.xxxl}`;
@@ -31,7 +42,7 @@ export default function TileCard({
             className={`lg:w-[13%] h-[100%] rounded-md border border-slate-400 shadow-md hover:shadow-lg  hover:scale-105 hover:bg-gradient-to-br transition duration-100
             ${matchedPairs.includes(tileDetails.matchingId) ? "invisible" : "visible"}
             ${tileDetails.color ? colorsModeColors : numbersModeColors}
-            ${gameSize12} ${gameSize24}
+            ${gameSize12} ${gameSize16} ${gameSize20} ${gameSize24}
             `}
         >
             {children}

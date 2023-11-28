@@ -16,7 +16,7 @@ export default function Button({ label, value, action }: IButton) {
         <>
             <button
                 type="button"
-                className="px-5 py-2 rounded-md bg-blue-300 border border-blue-300 hover:border-blue-300 shadow-md hover:shadow-none hover:bg-blue-50 text-slate-600 font-semibold transition duration-75 hover:scale-95 "
+                className="w-[45%] px-5 py-2 rounded-md bg-blue-300 border border-blue-300 hover:border-blue-300 shadow-md hover:shadow-none hover:bg-blue-50 text-slate-600 font-semibold transition duration-75 hover:scale-95 "
                 onClick={handleClick}
             >
                 {label}
