@@ -56,7 +56,7 @@ function App() {
                 {/* if game is not over, display */}
                 {!timerContext.isGameOver && (
                     <div
-                        className={`w-[100%] h-[100%] -mt-[8rem] flex justify-center items-center`}
+                        className={`w-[100%] h-[100%] -mt-[3rem] flex justify-center items-center`}
                     >
                         <Tiles />
                     </div>
