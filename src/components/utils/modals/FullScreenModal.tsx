@@ -39,10 +39,10 @@ export default function FullScreenModal({
 
     return (
         <div
-            className={`absolute top-0 z-50 left-0 bg-blue-400 bg-opacity-40 w-[100vw] h-[100vh] flex justify-center items-center`}
+            className={`absolute top-0 z-50 left-0 bg-blue-400 bg-opacity-40 px-5 w-[100vw] h-[100vh] flex justify-center items-center`}
         >
             <div
-                className={`relative bg-blue-50 flex flex-col justify-center items-center gap-4 h-auto max-h-[50%] max-w-[50%] px-20 py-8 rounded shadow-lg trasition duration-75 ease-in-out 
+                className={`relative bg-blue-50 flex flex-col justify-center items-center gap-4 h-auto max-h-[50%] max-w-[100%] px-3 py-8 rounded shadow-lg trasition duration-75 ease-in-out 
                 ${isMounted ? "scale-100 visible" : "scale-50 invisible"}`}
             >
                 {/* Start of back arrow */}

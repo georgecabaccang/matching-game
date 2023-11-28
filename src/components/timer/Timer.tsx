@@ -42,8 +42,8 @@ export default function Timer() {
 
     return (
         <div className={`flex justify-center flex-col items-center`}>
-            <div className="text-[1.2rem]">Your Time:</div>
-            <div className="text-[2rem] flex justify-center gap-1">
+            <div className="md:text-[1.4rem] text-[1.2rem]">Your Time:</div>
+            <div className="md:text-[2.3rem] text-[2rem] flex justify-center gap-1">
                 <TimeDisplay time={minutes.current} unit="min" />:
                 <TimeDisplay time={seconds.current} unit="sec" />:
                 <TimeDisplay time={milliseconds.current} unit="ms" />
