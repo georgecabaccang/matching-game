@@ -1,18 +1,16 @@
 import Tiles from "./components/tiles/Tiles";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { TileContext } from "./store/tile-context/TileContext";
 import Timer from "./components/timer/Timer";
+import { TimerContext } from "./store/timer-context/TimerContext";
 import HighScores from "./components/scores/HighScores";
 import FullScreenModal from "./components/utils/modals/FullScreenModal";
 import { GameContext } from "./store/game-context/GameContext";
 import resetIcon from "./assets/icons/reset-icon.png";
-import { TimerProvider } from "./store/timer-context/TimerContext";
 
 function App() {
-    const [resetGame, setResetGame] = useState(false);
-    const [timeInMilliseconds, setTimeInMilliseconds] = useState(0);
-
     const tileContext = useContext(TileContext);
+    const timerContext = useContext(TimerContext);
     const gameContext = useContext(GameContext);
 
     useEffect(() => {
@@ -24,7 +22,7 @@ function App() {
 
     const restartGame = () => {
         gameContext.resetGameSettings();
-        setResetGame((prev) => !prev);
+        timerContext.resetTimerValues();
     };
 
     // conditional props to pass to FullScreenModal component
@@ -37,7 +35,6 @@ function App() {
     const backAction = () => gameContext.setGameMode("");
     // -----------------------------------------------------------
 
-    console.log(timeInMilliseconds);
     return (
         <>
             {!gameContext.isGameSet && (
@@ -51,27 +48,31 @@ function App() {
                 />
             )}
             <div className="w-[100vw] h-[100vh] overflow-auto flex items-center bg-blue-50 flex-col">
-                <TimerProvider>
-                    <Timer resetGame={resetGame} setTimeInMilliseconds={setTimeInMilliseconds} />
-                </TimerProvider>
-
+                <div
+                    className={`mb-[1rem] md:mb-[1rem] flex xxxs:mt-[3rem] md:mt-[5rem] lg:mt-[3rem] xl:mt-[4rem] xxl:mt-[5.3rem] xxxl:mt-[7.5rem] xxxl:mb-[3rem] xxxxl:mt-[10rem] xxxxl:mb-[5rem] justify-center items-center transition duration-300 
+                    ${
+                        timerContext.isGameOver
+                            ? "scale-150 md:mt-[6rem] lg:mt-[4rem] xl:mt-[4.4rem] xxl:mt-[5.2em] xxxl:mt-[6.5rem] xxxxl:mt-[8.5rem]"
+                            : "scale-100"
+                    }`}
+                >
+                    <Timer />
+                </div>
                 {/* if game is not over, display */}
-                {gameContext.isGameSet && gameContext.gameSize !== 0 && (
+                {!timerContext.isGameOver && gameContext.gameSize !== 0 && (
                     <div className={`w-[100%] h-[20%]`}>
                         <Tiles />
                     </div>
                 )}
                 {/* if game is over, display */}
-                {timeInMilliseconds ? (
+                {timerContext.isGameOver && (
                     <div className="h-[70%] w-[100%] flex justify-center pt-5">
                         <HighScores
-                            timeOfUser={timeInMilliseconds}
+                            timeOfUser={timerContext.totalTimeInMilliseconds}
                             gameMode={gameContext.gameMode}
                             gameSize={gameContext.gameSize}
                         />
                     </div>
-                ) : (
-                    ""
                 )}
             </div>
             {gameContext.isGameSet && (
