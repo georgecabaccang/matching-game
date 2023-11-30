@@ -12,9 +12,10 @@ interface IProps {
     leader: ILealderBoard;
     index: number;
     newHighScore: IScores | null;
+    containerPerHighScore: string;
 }
 
-export default function HighScore({ leader, index, newHighScore }: IProps) {
+export default function HighScore({ leader, index, newHighScore, containerPerHighScore }: IProps) {
     const formatTime = () => {
         const minute = Math.floor(leader.time / 60000).toString();
         const seconds = Math.floor(leader.time / 1000).toString();
@@ -36,7 +37,7 @@ export default function HighScore({ leader, index, newHighScore }: IProps) {
 
     return (
         <div
-            className={`h-[20%] w-[50%] flex justify-center items-center ${
+            className={`${containerPerHighScore} ${
                 leader._id === newHighScore?._id
                     ? "animate-pulse bg-blue-200 rounded-lg font-bold"
                     : ""

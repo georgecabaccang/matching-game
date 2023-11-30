@@ -47,6 +47,9 @@ export default function HighScores({
         }
     };
 
+    const containerPerHighScore =
+        "h-[15%] w-[100%] md:w-[45%] md:h-[20%] flex justify-center items-center";
+
     // generate blank divs for placeholders when top 10 is not full
     const generateBlankDivs = () => {
         if (highScores) {
@@ -57,15 +60,17 @@ export default function HighScores({
             const toBePushed: any[] = [];
             for (let i = highScores.length; i < numberOfDivs + highScores.length; i++) {
                 const placeHolderDiv = (
-                    <div className={`h-[20%] w-[50%] flex justify-center items-center`} key={i}>
+                    <div className={`${containerPerHighScore}`} key={i}>
                         <div className="flex gap-3 w-[100%] lg:px-8 xl:px-14 relative">
                             <div
-                                className={`absolute font-bold top-[0.9rem] ${
+                                className={`absolute font-bold top-[0.65rem] ${
                                     i === 9 ? "-ml-[0.3rem]" : ""
                                 }`}
                             >{`${i + 1}`}</div>
                             <div className={`flex justify-between w-[100%] items-center ml-5`}>
-                                <div className="text-[2rem] font-semibold ml-5">-</div>
+                                <div className="text-[2rem] font-semibold -mt-[0.2rem] ml-[2rem]">
+                                    -
+                                </div>
                                 <div>{"(00:00:000)"}</div>
                             </div>
                         </div>
@@ -103,8 +108,8 @@ export default function HighScores({
         getScores();
     }, []);
     return (
-        <div className="w-[60%] h-[100%] flex justify-center flex-wrap">
-            <ul className="h-[50%] w-[100%] justify-between items-center flex flex-wrap flex-col">
+        <div className="w-[100%] h-[100%] md:justify-normal flex justify-center flex-wrap">
+            <ul className="h-[50%] w-[100%] overflow-y-scroll md:px-[5rem] md:flex-col md:w-[100%] md:overflow-x-hidden justify-between items-center flex flex-wrap flex-row px-[2rem]">
                 {highScores &&
                     highScores.map((leader, index) => {
                         return (
@@ -113,6 +118,7 @@ export default function HighScores({
                                 index={index}
                                 key={leader._id}
                                 newHighScore={newHighScore}
+                                containerPerHighScore={containerPerHighScore}
                             />
                         );
                     })}

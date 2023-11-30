@@ -55,18 +55,20 @@ function App() {
                     <Timer />
                 </div>
                 {/* if game is not over, display */}
-                {!timerContext.isGameOver && gameContext.gameSize && (
+                {!timerContext.isGameOver && gameContext.gameSize !== 0 && (
                     <div className={`w-[100%] h-[20%]`}>
                         <Tiles />
                     </div>
                 )}
                 {/* if game is over, display */}
                 {timerContext.isGameOver && (
-                    <HighScores
-                        timeOfUser={timerContext.totalTimeInMilliseconds}
-                        gameMode={gameContext.gameMode}
-                        gameSize={gameContext.gameSize}
-                    />
+                    <div className="h-[70%] w-[100%] flex justify-center pt-5">
+                        <HighScores
+                            timeOfUser={timerContext.totalTimeInMilliseconds}
+                            gameMode={gameContext.gameMode}
+                            gameSize={gameContext.gameSize}
+                        />
+                    </div>
                 )}
             </div>
             {gameContext.isGameSet && (
