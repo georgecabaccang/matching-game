@@ -73,13 +73,15 @@ function App() {
                 <>
                     <div className={`w-auto h-auto absolute top-10 right-10 md:block hidden`}>
                         <div
-                            className="bg-blue-300 text-[1rem] rounded-md px-3 py-1 flex hover:bg-blue-400 hover:scale-95 shadow-md hover:shadow-none transition duration-75 font-semibold hover:font-normal"
+                            className="bg-blue-300 rounded-md px-3 xxl:px-7 py-1 flex hover:bg-blue-400 hover:scale-95 shadow-md hover:shadow-none transition duration-75 font-semibold hover:font-normal"
                             onClick={restartGame}
                         >
-                            <div className="w-[1.5rem] mt-[0.1rem] me-[0.2rem]">
+                            <div className="w-[1.5rem] xl:w-[1.7rem] xxl:w-[2rem] xxxl:w-[2.4rem] xxxxl:w-[4.3rem] mt-[0.1rem] me-[0.2rem]">
                                 <img src={resetIcon} alt="reset-svg" />
                             </div>
-                            <div>Restart Game</div>
+                            <div className="text-[1rem] xl:text-[1.2rem] xxl:text-[1.4rem] xxxl:text-[1.7rem] xxxxl:text-[2.5rem]">
+                                Restart Game
+                            </div>
                         </div>
                     </div>
                     <div className={`w-[2.5rem] absolute top-5 right-5 block md:hidden`}>
