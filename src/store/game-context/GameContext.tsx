@@ -2,6 +2,8 @@ import { Dispatch, ReactNode, SetStateAction, createContext, useState } from "re
 
 interface IGameContext {
     isGameSet: boolean;
+    gameStart: boolean;
+    setGameStart: Dispatch<SetStateAction<boolean>>;
     gameMode: string;
     gameSize: number;
     setIsGameSet: Dispatch<SetStateAction<boolean>>;
@@ -14,6 +16,8 @@ interface IGameContext {
 
 export const GameContext = createContext<IGameContext>({
     isGameSet: false,
+    gameStart: false,
+    setGameStart: () => {},
     gameMode: "",
     gameSize: 0,
     setIsGameSet: () => {},
@@ -26,6 +30,7 @@ export const GameContext = createContext<IGameContext>({
 
 export const GameProvider = (props: { children: ReactNode }) => {
     const [isGameSet, setIsGameSet] = useState(false);
+    const [gameStart, setGameStart] = useState(false);
     const [gameMode, setGameMode] = useState("");
     const [gameSize, setGameSize] = useState(0);
 
@@ -67,6 +72,8 @@ export const GameProvider = (props: { children: ReactNode }) => {
 
     const GameContextValues: IGameContext = {
         isGameSet: isGameSet,
+        gameStart: gameStart,
+        setGameStart: setGameStart,
         gameMode: gameMode,
         gameSize: gameSize,
         setIsGameSet: setIsGameSet,

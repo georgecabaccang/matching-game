@@ -2,7 +2,6 @@ import { useContext, useEffect, useState, useRef } from "react";
 import TileCard from "../../ui/TileCard";
 import Tile from "./Tile";
 import { TileContext } from "../../store/tile-context/TileContext";
-import { TimerContext } from "../../store/timer-context/TimerContext";
 import { GameContext } from "../../store/game-context/GameContext";
 import {
     tilesSize12,
@@ -21,7 +20,6 @@ export default function Tiles() {
 
     const gameContext = useContext(GameContext);
     const tileContext = useContext(TileContext);
-    const timerContext = useContext(TimerContext);
 
     const checkShuffledTiles = async () => {
         const isShuffled = await tileContext.shuffleTiles();
@@ -78,7 +76,7 @@ export default function Tiles() {
             const lastMatchWillBeAdded =
                 Math.abs(matchedPairs?.length * 2) === tileContext.givenTiles?.length - 2;
             if (lastMatchWillBeAdded) {
-                timerContext.stopTimer();
+                gameContext.setGameStart(false);
             }
 
             setMatchedPairs([...matchedPairs, firstMatch.current]);
