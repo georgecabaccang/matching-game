@@ -37,17 +37,25 @@ export default function FullScreenModal({
         };
     }, []);
 
+    const breakPoints =
+        "xl:text-[1.2rem] xl:px-[3rem] xxl:text-[1.5rem] xxl:px-[5rem] xxxl:text-[1.8rem] xxxl:py-[3rem] xxxxl:text-[2.6rem] xxxxl:px-[6rem] xxxxl:py-[4rem]";
+
     return (
         <div
             className={`absolute top-0 z-50 left-0 bg-blue-400 bg-opacity-40 px-5 w-[100vw] h-[100vh] flex justify-center items-center`}
         >
             <div
-                className={`relative bg-blue-50 flex flex-col justify-center items-center gap-4 h-auto max-h-[50%] max-w-[100%] px-3 py-8 rounded shadow-lg trasition duration-75 ease-in-out 
-                ${isMounted ? "scale-100 visible" : "scale-50 invisible"}`}
+                className={`relative text-[1rem] bg-blue-50 flex flex-col justify-center items-center gap-4 h-auto max-h-[50%] px-[2.3rem] py-[1.5rem] rounded shadow-lg trasition duration-75 ease-in-out 
+                ${isMounted ? "scale-100 visible" : "scale-50 invisible"}
+                ${breakPoints}
+                `}
             >
                 {/* Start of back arrow */}
                 {showBack && (
-                    <button onClick={backAction} className="absolute top-1 left-1 w-[3rem]">
+                    <button
+                        onClick={backAction}
+                        className="absolute top-1 left-1 w-[3rem] xl:w-[4rem] xxl:w-[4.8rem] xxxl:w-[5.5rem] xxxxl:w-[8rem]"
+                    >
                         <svg
                             style={{
                                 color: "#93c5fd",
@@ -71,7 +79,9 @@ export default function FullScreenModal({
                 {/* End of back arrow */}
 
                 {/* Start of head */}
-                <div className="text-[1.2rem] font-bold">{head}</div>
+                <div className="font-bold" style={{ fontSize: "1.2em" }}>
+                    {head}
+                </div>
                 {/* Endof head */}
 
                 {/* Start of body */}
@@ -79,22 +89,22 @@ export default function FullScreenModal({
                 {/* End of body */}
 
                 {/* Start of buttons */}
-                <div>
-                    {choices && (
-                        <ButtonGroup direction="row">
-                            {choices.map((choice, index) => {
-                                return (
-                                    <Button
-                                        key={index}
-                                        label={choice.label}
-                                        value={choice.value}
-                                        action={setStateAction}
-                                    />
-                                );
-                            })}
-                        </ButtonGroup>
-                    )}
-                </div>
+
+                {choices && (
+                    <ButtonGroup direction="row">
+                        {choices.map((choice, index) => {
+                            return (
+                                <Button
+                                    key={index}
+                                    label={choice.label}
+                                    value={choice.value}
+                                    action={setStateAction}
+                                />
+                            );
+                        })}
+                    </ButtonGroup>
+                )}
+
                 {/* End of buttons */}
             </div>
         </div>

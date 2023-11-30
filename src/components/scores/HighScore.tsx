@@ -12,9 +12,10 @@ interface IProps {
     leader: ILealderBoard;
     index: number;
     newHighScore: IScores | null;
+    containerPerHighScore: string;
 }
 
-export default function HighScore({ leader, index, newHighScore }: IProps) {
+export default function HighScore({ leader, index, newHighScore, containerPerHighScore }: IProps) {
     const formatTime = () => {
         const minute = Math.floor(leader.time / 60000).toString();
         const seconds = Math.floor(leader.time / 1000).toString();
@@ -36,7 +37,7 @@ export default function HighScore({ leader, index, newHighScore }: IProps) {
 
     return (
         <div
-            className={`h-[20%] w-[50%] flex justify-center items-center ${
+            className={`${containerPerHighScore} ${
                 leader._id === newHighScore?._id
                     ? "animate-pulse bg-blue-200 rounded-lg font-bold"
                     : ""
@@ -46,7 +47,9 @@ export default function HighScore({ leader, index, newHighScore }: IProps) {
                 <div className={`absolute font-bold ${index === 9 ? "-ml-[0.3rem]" : ""}`}>
                     {`${index + 1}`}
                 </div>
-                <div className={`flex justify-between w-[100%] items-center ml-5`}>
+                <div
+                    className={`flex justify-between w-[100%] items-center ml-5 md:ml-[2rem] xl:ml-[3rem] xxxl:ml-[4rem]`}
+                >
                     <div className="">{leader.name}</div>
                     <div>{formatTime()}</div>
                 </div>

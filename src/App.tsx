@@ -49,37 +49,45 @@ function App() {
             )}
             <div className="w-[100vw] h-[100vh] overflow-auto flex items-center bg-blue-50 flex-col">
                 <div
-                    className={`mb-[1rem] md:mb-[1rem] flex xxxs:mt-[3rem] justify-center items-center transition duration-300 
-                    ${timerContext.isGameOver ? "scale-150" : "scale-100"}`}
+                    className={`mb-[1rem] md:mb-[1rem] flex xxxs:mt-[3rem] md:mt-[5rem] lg:mt-[3rem] xl:mt-[4rem] xxl:mt-[5.3rem] xxxl:mt-[7.5rem] xxxl:mb-[3rem] xxxxl:mt-[10rem] xxxxl:mb-[5rem] justify-center items-center transition duration-300 
+                    ${
+                        timerContext.isGameOver
+                            ? "scale-150 md:mt-[6rem] lg:mt-[4rem] xl:mt-[4.4rem] xxl:mt-[5.2em] xxxl:mt-[6.5rem] xxxxl:mt-[8.5rem]"
+                            : "scale-100"
+                    }`}
                 >
                     <Timer />
                 </div>
                 {/* if game is not over, display */}
-                {!timerContext.isGameOver && (
+                {!timerContext.isGameOver && gameContext.gameSize !== 0 && (
                     <div className={`w-[100%] h-[20%]`}>
                         <Tiles />
                     </div>
                 )}
                 {/* if game is over, display */}
                 {timerContext.isGameOver && (
-                    <HighScores
-                        timeOfUser={timerContext.totalTimeInMilliseconds}
-                        gameMode={gameContext.gameMode}
-                        gameSize={gameContext.gameSize}
-                    />
+                    <div className="h-[70%] w-[100%] flex justify-center pt-5">
+                        <HighScores
+                            timeOfUser={timerContext.totalTimeInMilliseconds}
+                            gameMode={gameContext.gameMode}
+                            gameSize={gameContext.gameSize}
+                        />
+                    </div>
                 )}
             </div>
             {gameContext.isGameSet && (
                 <>
                     <div className={`w-auto h-auto absolute top-10 right-10 md:block hidden`}>
                         <div
-                            className="bg-blue-300 text-[1rem] rounded-md px-3 py-1 flex hover:bg-blue-400 hover:scale-95 shadow-md hover:shadow-none transition duration-75 font-semibold hover:font-normal"
+                            className="bg-blue-300 rounded-md px-3 xxl:px-7 py-1 flex hover:bg-blue-400 hover:scale-95 shadow-md hover:shadow-none transition duration-75 font-semibold hover:font-normal"
                             onClick={restartGame}
                         >
-                            <div className="w-[1.5rem] mt-[0.1rem] me-[0.2rem]">
+                            <div className="w-[1.5rem] xl:w-[1.7rem] xxl:w-[2rem] xxxl:w-[2.4rem] xxxxl:w-[4.3rem] mt-[0.1rem] me-[0.2rem]">
                                 <img src={resetIcon} alt="reset-svg" />
                             </div>
-                            <div>Restart Game</div>
+                            <div className="text-[1rem] xl:text-[1.2rem] xxl:text-[1.4rem] xxxl:text-[1.7rem] xxxxl:text-[2.5rem]">
+                                Restart Game
+                            </div>
                         </div>
                     </div>
                     <div className={`w-[2.5rem] absolute top-5 right-5 block md:hidden`}>
