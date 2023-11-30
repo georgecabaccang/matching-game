@@ -98,7 +98,7 @@ export const tilesSize24 = {
 
 export const tilesCardSize24 = {
     xxxs: "xxxs:w-[23%] xxxs:h-[4.2rem]",
-    xxs: "xxs:w-[22%] xxs:h-[4.5rem]",
+    xxs: "xxs:w-[22%] xxs:h-[5rem]",
     xs: "xs:w-[22%] xs:h-[5rem]",
     sm: "sm:w-[15%] sm:h-[4.9rem]",
     md: "md:w-[23%] md:h-[7.5rem]",
