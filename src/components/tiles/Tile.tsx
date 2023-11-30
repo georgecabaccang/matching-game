@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useContext } from "react";
+import { TimerContext } from "../../store/timer-context/TimerContext";
 import { GameContext } from "../../store/game-context/GameContext";
 
 export interface ITile {
@@ -23,6 +24,7 @@ export default function Tile({
     const isTileShown = useRef(false);
 
     const gameContext = useContext(GameContext);
+    const timerContext = useContext(TimerContext);
 
     const changeClickStatus = () => {
         setShowTile(!showTile);
@@ -43,7 +45,7 @@ export default function Tile({
     const handleTileClick = () => {
         changeClickStatus();
         if (!timeStarted.current) {
-            gameContext.setGameStart(true);
+            timerContext.startTimer();
             timeStarted.current = true;
         }
     };
