@@ -48,7 +48,7 @@ export default function HighScores({
     };
 
     const containerPerHighScore =
-        "h-[15%] w-[100%] md:w-[45%] md:h-[20%] flex justify-center items-center";
+        "h-[15%] w-[100%] md:w-[45%] md:h-[20%] xl:text-[1.3rem] xxxl:text-[1.8rem] xxxxl:text-[2.3rem] flex justify-center items-center";
 
     // generate blank divs for placeholders when top 10 is not full
     const generateBlankDivs = () => {
@@ -64,11 +64,13 @@ export default function HighScores({
                         <div className="flex gap-3 w-[100%] lg:px-8 xl:px-14 relative">
                             <div
                                 className={`absolute font-bold top-[0.65rem] ${
-                                    i === 9 ? "-ml-[0.3rem]" : ""
+                                    i === 9
+                                        ? "-ml-[0.3rem] xxxl:-ml-[0.5rem] xxxxl:-ml-[0.6rem]"
+                                        : ""
                                 }`}
                             >{`${i + 1}`}</div>
                             <div className={`flex justify-between w-[100%] items-center ml-5`}>
-                                <div className="text-[2rem] font-semibold -mt-[0.2rem] ml-[2rem]">
+                                <div className="text-[2rem] font-semibold ml-[2rem] -mt-[0.2rem] xl:-mt-[0.1rem] xxl:-mt-[0rem] xxxl:mt-[0.4rem] xxxl:ml-[3.3rem] xxxxl:mt-[0.8rem]">
                                     -
                                 </div>
                                 <div>{"(00:00:000)"}</div>

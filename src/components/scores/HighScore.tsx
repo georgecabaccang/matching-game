@@ -47,7 +47,9 @@ export default function HighScore({ leader, index, newHighScore, containerPerHig
                 <div className={`absolute font-bold ${index === 9 ? "-ml-[0.3rem]" : ""}`}>
                     {`${index + 1}`}
                 </div>
-                <div className={`flex justify-between w-[100%] items-center ml-5`}>
+                <div
+                    className={`flex justify-between w-[100%] items-center ml-5 md:ml-[2rem] xl:ml-[3rem] xxxl:ml-[4rem]`}
+                >
                     <div className="">{leader.name}</div>
                     <div>{formatTime()}</div>
                 </div>
