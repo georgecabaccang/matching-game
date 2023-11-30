@@ -49,8 +49,12 @@ function App() {
             )}
             <div className="w-[100vw] h-[100vh] overflow-auto flex items-center bg-blue-50 flex-col">
                 <div
-                    className={`mb-[1rem] md:mb-[1rem] flex xxxs:mt-[3rem] justify-center items-center transition duration-300 
-                    ${timerContext.isGameOver ? "scale-150" : "scale-100"}`}
+                    className={`mb-[1rem] md:mb-[1rem] flex xxxs:mt-[3rem] md:mt-[5rem] lg:mt-[3rem] xl:mt-[4rem] xxl:mt-[5.3rem] xxxl:mt-[7.5rem] xxxl:mb-[3rem] xxxxl:mt-[10rem] xxxxl:mb-[5rem] justify-center items-center transition duration-300 
+                    ${
+                        timerContext.isGameOver
+                            ? "scale-150 md:mt-[6rem] lg:mt-[4rem] xl:mt-[4.4rem] xxl:mt-[5.2em] xxxl:mt-[6.5rem] xxxxl:mt-[8.5rem]"
+                            : "scale-100"
+                    }`}
                 >
                     <Timer />
                 </div>
