@@ -55,7 +55,7 @@ function App() {
                     <Timer />
                 </div>
                 {/* if game is not over, display */}
-                {!timerContext.isGameOver && (
+                {!timerContext.isGameOver && gameContext.gameSize && (
                     <div className={`w-[100%] h-[20%]`}>
                         <Tiles />
                     </div>
