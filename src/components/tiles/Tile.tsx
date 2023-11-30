@@ -62,7 +62,7 @@ export default function Tile({
                 ${showTile ? "visible" : "invisible"}`}
             >
                 {showTile && isNumbersGameMode ? (
-                    <div className="flex justify-center items-center w-[100%] h-[100%] font-semibold text-[2rem] ">
+                    <div className="flex justify-center items-center w-[100%] h-[100%] font-semibold text-[2em] ">
                         {tileDetails.matchingId}
                     </div>
                 ) : (

@@ -6,10 +6,10 @@ export const tilesSize12 = {
     sm: "sm:pb-[6rem] sm:gap-[0.7rem] sm:w-[90%]",
     md: "md:pb-[6rem] md:pt-7 md:gap-[0.7rem] md:w-[70%]",
     lg: "lg:pb-[6rem] lg:gap-[0.7rem] lg:w-[50%]",
-    xl: "xl:pb-[6rem] xl:gap-[0.8rem] xl:w-[60%]",
-    xxl: "xxl:pb-[6rem] xxl:gap-[0.9rem] xxl:w-[60%]",
-    xxxl: "xxxl:pb-[6rem] xxxl:gap-[1rem] xxxl:w-[50%]",
-    xxxxl: "xxxxl:pb-[6rem] xxxxl:gap-[1rem] xxxxl:w-[65%]",
+    xl: "xl:pb-[6rem] xl:gap-[0.8rem] xl:w-[60%] xl:text-[1.3rem]",
+    xxl: "xxl:pb-[6rem] xxl:gap-[0.9rem] xxl:w-[60%] xxl:text-[1.4rem",
+    xxxl: "xxxl:pb-[6rem] xxxl:gap-[1rem] xxxl:w-[50%] xxxl:text-[1.5rem]",
+    xxxxl: "xxxxl:pb-[6rem] xxxxl:gap-[1rem] xxxxl:w-[65%] xxxxl:text-[2.1rem]",
 };
 
 export const tilesCardSize12 = {
