@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect, useContext } from "react";
-import { TimerContext } from "../../store/timer-context/TimerContext";
 import { GameContext } from "../../store/game-context/GameContext";
 
 export interface ITile {
@@ -24,7 +23,6 @@ export default function Tile({
     const isTileShown = useRef(false);
 
     const gameContext = useContext(GameContext);
-    const timerContext = useContext(TimerContext);
 
     const changeClickStatus = () => {
         setShowTile(!showTile);
@@ -35,6 +33,7 @@ export default function Tile({
         showTileCount("subtract", 0);
     };
 
+    console.log("really?");
     useEffect(() => {
         if (hasTwoShownTiles) {
             setShowTile(false);
@@ -44,8 +43,8 @@ export default function Tile({
     const timeStarted = useRef(false);
     const handleTileClick = () => {
         changeClickStatus();
-        if (!timeStarted.current) {
-            timerContext.startTimer();
+        if (!gameContext.startGame) {
+            gameContext.setStartGame(true);
             timeStarted.current = true;
         }
     };

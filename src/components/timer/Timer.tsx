@@ -1,9 +1,16 @@
-import { useContext, useRef, useEffect } from "react";
+import { useContext, useRef, useEffect, Dispatch, SetStateAction } from "react";
 import { TimerContext } from "../../store/timer-context/TimerContext";
 import TimeDisplay from "./TimeDisplay";
+import { GameContext } from "../../store/game-context/GameContext";
 
-export default function Timer() {
-    const { time } = useContext(TimerContext);
+interface ITimerProps {
+    setTotalTime: Dispatch<SetStateAction<number>>;
+}
+
+export default function Timer({ setTotalTime }: ITimerProps) {
+    const { time, stopTimer, startTimer, totalTimeInMilliseconds, resetTimerValues } =
+        useContext(TimerContext);
+    const gameContext = useContext(GameContext);
 
     const minutes = useRef("00");
     const seconds = useRef("00");
@@ -39,6 +46,23 @@ export default function Timer() {
     useEffect(() => {
         formatTime();
     }, [time]);
+
+    useEffect(() => {
+        if (!gameContext.startGame) {
+            return stopTimer();
+        }
+        startTimer();
+    }, [gameContext.startGame]);
+
+    useEffect(() => {
+        setTotalTime(totalTimeInMilliseconds);
+    }, [totalTimeInMilliseconds]);
+
+    useEffect(() => {
+        if (!gameContext.isGameSet) {
+            resetTimerValues();
+        }
+    }, [gameContext.isGameSet]);
 
     return (
         <div className={`flex justify-center flex-col items-center`}>
