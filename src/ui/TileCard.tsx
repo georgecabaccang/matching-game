@@ -12,6 +12,7 @@ interface ITileCardProps {
     matchedPairs: number[];
     tileDetails: ITile;
     gameSize: number;
+    gameMode: string;
 }
 
 export default function TileCard({
@@ -19,6 +20,7 @@ export default function TileCard({
     matchedPairs,
     tileDetails,
     gameSize,
+    gameMode,
 }: ITileCardProps) {
     const numbersModeColors = "bg-blue-300 hover:from-blue-300 hover:to-blue-600";
     const colorsModeColors = "bg-slate-800 hover:from-slate-800 hover:to-black";
@@ -39,9 +41,13 @@ export default function TileCard({
 
     return (
         <div
-            className={`lg:w-[13%] h-[100%] rounded-md border border-slate-400 shadow-md hover:shadow-lg  hover:scale-105 hover:bg-gradient-to-br transition duration-100
-            ${matchedPairs.includes(tileDetails.matchingId) ? "invisible" : "visible"}
-            ${tileDetails.color ? colorsModeColors : numbersModeColors}
+            className={`lg:w-[13%] h-[100%] rounded-md border border-slate-400 shadow-md hover:shadow-lg hover:scale-105 hover:bg-gradient-to-br transition duration-100
+            ${
+                matchedPairs.includes(tileDetails.matchingId)
+                    ? "bg-transparent scale-75 hover:scale-0 transition-all duration-300 border-none shadow-none pointer-events-none"
+                    : "visible"
+            }
+            ${gameMode === "numbers" ? numbersModeColors : colorsModeColors}
             ${gameSize12} ${gameSize16} ${gameSize20} ${gameSize24}
             `}
         >
