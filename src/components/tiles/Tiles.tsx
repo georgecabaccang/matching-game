@@ -52,8 +52,8 @@ export default function Tiles() {
     const resetTile = async () => {
         count.current = 0;
         setDisabled(true);
+        resetMatches();
         setTimeout(() => {
-            resetMatches();
             setHasTwoShownTiles(true);
             setDisabled(false);
         }, 100);
