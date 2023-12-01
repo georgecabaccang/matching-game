@@ -20,6 +20,9 @@ export default {
     extend: {
     },
   },
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   plugins: [],
 }
 
