@@ -10,6 +10,10 @@ interface IGameContext {
     modeChoice: { label: string; value: string }[];
     sizeChoice: { label: string; value: number }[];
     resetGameSettings: () => void;
+    isGameOver: boolean;
+    setIsGameOver: Dispatch<SetStateAction<boolean>>;
+    startGame: boolean;
+    setStartGame: Dispatch<SetStateAction<boolean>>;
 }
 
 export const GameContext = createContext<IGameContext>({
@@ -22,12 +26,18 @@ export const GameContext = createContext<IGameContext>({
     modeChoice: [],
     sizeChoice: [],
     resetGameSettings: () => {},
+    isGameOver: false,
+    setIsGameOver: () => {},
+    startGame: false,
+    setStartGame: () => {},
 });
 
 export const GameProvider = (props: { children: ReactNode }) => {
     const [isGameSet, setIsGameSet] = useState(false);
     const [gameMode, setGameMode] = useState("");
     const [gameSize, setGameSize] = useState(0);
+    const [isGameOver, setIsGameOver] = useState(false);
+    const [startGame, setStartGame] = useState(false);
 
     const modeChoice = [
         {
@@ -63,6 +73,8 @@ export const GameProvider = (props: { children: ReactNode }) => {
         setIsGameSet(false);
         setGameMode("");
         setGameSize(0);
+        setIsGameOver(false);
+        setStartGame(false);
     };
 
     const GameContextValues: IGameContext = {
@@ -75,6 +87,10 @@ export const GameProvider = (props: { children: ReactNode }) => {
         modeChoice: modeChoice,
         sizeChoice: sizeChoice,
         resetGameSettings: resetGameSettings,
+        isGameOver: isGameOver,
+        setIsGameOver: setIsGameOver,
+        startGame: startGame,
+        setStartGame: setStartGame,
     };
 
     return <GameContext.Provider value={GameContextValues}>{props.children}</GameContext.Provider>;
