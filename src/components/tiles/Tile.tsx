@@ -33,7 +33,6 @@ export default function Tile({
         showTileCount("subtract", 0);
     };
 
-    console.log("really?");
     useEffect(() => {
         if (hasTwoShownTiles) {
             setShowTile(false);
