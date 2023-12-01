@@ -129,6 +129,7 @@ export default function Tiles() {
                                 matchedPairs={matchedPairs}
                                 tileDetails={givenTile}
                                 gameSize={gameContext.gameSize}
+                                gameMode={gameContext.gameMode}
                             >
                                 <Tile
                                     disabled={disabled}
