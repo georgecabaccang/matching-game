@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import HighScore from "./HighScore";
 import { deleteScore, getScoresOfMode } from "../../api-requests/scoreRequests";
 import AddScoreForm from "../forms/AddScoreForm";
+import loadingSpinner from "../../assets/gifs/spinner.gif";
 
 export interface IScores {
     _id: string;
@@ -24,6 +25,7 @@ export default function HighScores({
     const [newHighScore, setNewHighScore] = useState<IScores | null>(null);
     const [placeHolderDivs, setPlaceHolderDivs] = useState<any>([]);
     const [isInTopTen, setIsInTopTen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const checkUserScore = () => {
         if (highScores && !newHighScore) {
@@ -37,14 +39,16 @@ export default function HighScores({
     };
 
     const getScores = async () => {
+        setIsLoading(true);
         const scores = await getScoresOfMode(gameMode, gameSize);
         setHighScores(scores);
 
         // if response is an empty array, return and make
         // user score elligible for top 10
         if (!scores.length || scores.length !== 10) {
-            return setIsInTopTen(true);
+            setIsInTopTen(true);
         }
+        setIsLoading(false);
     };
 
     const containerPerHighScore =
@@ -109,23 +113,34 @@ export default function HighScores({
     useEffect(() => {
         getScores();
     }, []);
+
     return (
         <div className="w-[100%] h-[100%] md:justify-normal flex justify-center flex-wrap">
-            <ul className="h-[50%] w-[100%] overflow-y-scroll sm:px-[7rem] md:px-[5rem] md:flex-col md:w-[100%] md:overflow-x-hidden justify-between items-center flex flex-wrap flex-row px-[2rem]">
-                {highScores &&
-                    highScores.map((leader, index) => {
-                        return (
-                            <HighScore
-                                leader={leader}
-                                index={index}
-                                key={leader._id}
-                                newHighScore={newHighScore}
-                                containerPerHighScore={containerPerHighScore}
-                            />
-                        );
-                    })}
-                {placeHolderDivs !== 0 && placeHolderDivs}
-            </ul>
+            {isLoading ? (
+                <div className="w-[100%] flex justify-center items-center h-[50%]">
+                    <img
+                        className={`transition duration-100 w-[3rem] xs:w-[3.2rem] md:w-[4rem] xxl:w-[5rem] xxxl:w-[6rem] xxxxl:w-[7rem]`}
+                        src={loadingSpinner}
+                        alt="loading-spinner"
+                    />
+                </div>
+            ) : (
+                <ul className="h-[50%] w-[100%] overflow-y-scroll sm:px-[7rem] md:px-[5rem] md:flex-col md:w-[100%] md:overflow-x-hidden justify-between items-center flex flex-wrap flex-row px-[2rem]">
+                    {highScores &&
+                        highScores.map((leader, index) => {
+                            return (
+                                <HighScore
+                                    leader={leader}
+                                    index={index}
+                                    key={leader._id}
+                                    newHighScore={newHighScore}
+                                    containerPerHighScore={containerPerHighScore}
+                                />
+                            );
+                        })}
+                    {placeHolderDivs !== 0 && placeHolderDivs}
+                </ul>
+            )}
             {isInTopTen && !newHighScore && (
                 <div className="w-[100%] flex justify-center">
                     <AddScoreForm
