@@ -125,7 +125,7 @@ export default function HighScores({
                     />
                 </div>
             ) : (
-                <ul className="h-[50%] w-[100%] overflow-y-scroll sm:px-[7rem] md:px-[5rem] md:flex-col md:w-[100%] md:overflow-x-hidden justify-between items-center flex flex-wrap flex-row px-[2rem]">
+                <ul className="h-[50%] w-[100%] overflow-y-auto sm:px-[7rem] md:px-[5rem] md:flex-col md:w-[100%] md:overflow-x-hidden justify-between items-center flex flex-wrap flex-row px-[2rem]">
                     {highScores &&
                         highScores.map((leader, index) => {
                             return (
