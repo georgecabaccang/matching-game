@@ -52,7 +52,9 @@ export default function Tile({
     return (
         <div
             className={`flex justify-center items-center h-[100%] w-[100%] rounded-md cursor-pointer transition duration-100 
-            ${showTile && "bg-blue-200"} ${disabled && "pointer-events-none"}`}
+            ${showTile && gameContext.gameMode === "numbers" && "bg-blue-200"} ${
+                disabled && "pointer-events-none"
+            }`}
             onClick={handleTileClick}
         >
             <div
