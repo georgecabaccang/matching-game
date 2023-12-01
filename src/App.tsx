@@ -81,7 +81,9 @@ function App() {
             </div>
             {gameContext.isGameSet && (
                 <>
-                    <div className={`w-auto h-auto absolute top-10 right-10 md:block hidden`}>
+                    <div
+                        className={`w-auto h-auto absolute top-10 right-10 md:block hidden cursor-pointer`}
+                    >
                         <div
                             className="bg-blue-300 rounded-md px-3 xxl:px-7 py-1 flex hover:bg-blue-400 hover:scale-95 shadow-md hover:shadow-none transition duration-75 font-semibold hover:font-normal"
                             onClick={restartGame}
@@ -94,7 +96,9 @@ function App() {
                             </div>
                         </div>
                     </div>
-                    <div className={`w-[2.5rem] absolute top-5 right-5 block md:hidden`}>
+                    <div
+                        className={`w-[2.5rem] absolute top-5 right-5 block md:hidden cursor-pointer`}
+                    >
                         <button
                             type="button"
                             className="bg-blue-300 rounded-md px-1 py-1 hover:bg-blue-400 hover:scale-95 shadow-md hover:shadow-none transition duration-75 font-semibold hover:font-normal"
