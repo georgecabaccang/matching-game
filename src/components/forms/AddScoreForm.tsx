@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { addScore } from "../../api-requests/scoreRequests";
 import { IScores } from "../scores/HighScores";
 
@@ -13,11 +13,16 @@ export default function AddScoreForm({
     timeOfUser: number;
     updateCurrentHighScores: (payload: IScores) => void;
 }) {
+    const [isLoading, setIsLoading] = useState(false);
     const nameRef = useRef<HTMLInputElement>(null);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        // prevent submitting more than once
+        if (isLoading) return;
+
+        setIsLoading(true);
         const payload = {
             name: nameRef.current!.value,
             time: timeOfUser,
@@ -25,8 +30,16 @@ export default function AddScoreForm({
             size: gameSize,
         };
 
+        // second layer mentioned below
+        if (!payload.mode) return;
+
         const newHighScore = (await addScore(payload)) as IScores;
         updateCurrentHighScores(newHighScore);
+
+        // empty out payload for added layer of check to prevent submitting more than once
+        Object.assign(payload, {});
+
+        setIsLoading(false);
     };
 
     return (
