@@ -9,35 +9,36 @@ export interface ITile {
 }
 
 export default function Tile({
-    disabled,
+    keepOpen,
     tileDetails,
     showTileCount,
     hasTwoShownTiles,
 }: {
-    disabled: boolean;
+    keepOpen: string;
     tileDetails: ITile;
-    showTileCount: (action: string, match: number) => void;
     hasTwoShownTiles: boolean;
+    showTileCount: ({ matchId, tileId }: { matchId: number; tileId: string }) => void;
 }) {
     const [showTile, setShowTile] = useState(false);
-    const isTileShown = useRef(false);
 
     const gameContext = useContext(GameContext);
 
     const changeClickStatus = () => {
         setShowTile(!showTile);
-        isTileShown.current = !showTile;
-        if (isTileShown.current) {
-            return showTileCount("add", tileDetails.matchingId);
-        }
-        showTileCount("subtract", 0);
+
+        return showTileCount({
+            matchId: tileDetails.matchingId,
+            tileId: tileDetails.id,
+        });
     };
 
     useEffect(() => {
-        if (hasTwoShownTiles) {
-            setShowTile(false);
+        // if keepOpen matches tileDetails.id, keep the tile flipped open
+        if (keepOpen === tileDetails.id) {
+            return setShowTile(true);
         }
-    }, [hasTwoShownTiles]);
+        setShowTile(false);
+    }, [keepOpen, tileDetails, hasTwoShownTiles]);
 
     const timeStarted = useRef(false);
     const handleTileClick = () => {
@@ -52,9 +53,7 @@ export default function Tile({
     return (
         <div
             className={`flex justify-center items-center h-[100%] w-[100%] rounded-md cursor-pointer transition duration-100 
-            ${showTile && gameContext.gameMode === "numbers" && "bg-blue-200"} ${
-                disabled && "pointer-events-none"
-            }`}
+            ${showTile && gameContext.gameMode === "numbers" && "bg-blue-200"}`}
             onClick={handleTileClick}
         >
             <div

@@ -13,10 +13,11 @@ import {
 export default function Tiles() {
     const [isLoading, setIsLoading] = useState(true);
     const [hasTwoShownTiles, setHasTwoShownTiles] = useState(false);
-    const [disabled, setDisabled] = useState(false);
+    // const [disabled, setDisabled] = useState(false);
     const [matchedPairs, setMatchedPairs] = useState<number[]>([]);
+    const [keepOpen, setKeepOpen] = useState("");
 
-    const count = useRef(0);
+    // const count = useRef(0);
 
     const gameContext = useContext(GameContext);
     const tileContext = useContext(TileContext);
@@ -39,61 +40,90 @@ export default function Tiles() {
         setMatchedPairs([]);
     }, [gameContext.gameMode]);
 
-    const firstMatch = useRef(0);
-    const secondMatch = useRef(0);
+    const firstMatch = useRef({ matchId: 0, tileId: "" });
+    const secondMatch = useRef({ matchId: 0, tileId: "" });
 
     const resetMatches = () => {
-        firstMatch.current = 0;
-        secondMatch.current = 0;
+        firstMatch.current = { matchId: 0, tileId: "" };
+        secondMatch.current = { matchId: 0, tileId: "" };
     };
 
     // resets tiles and disables tiles to stop user from clicking
     // more than two tiles
-    const resetTile = async () => {
-        count.current = 0;
-        setDisabled(true);
-        resetMatches();
-        setTimeout(() => {
-            setHasTwoShownTiles(true);
-            setDisabled(false);
-        }, 100);
-        setHasTwoShownTiles(false);
-    };
+    // const resetTile = async () => {
+    //     // count.current = 0;
+    //     // setDisabled(true);
+    //     // resetMatches();
+    //     // setTimeout(() => {
+    //     setHasTwoShownTiles((prev) => {
+    //         return !prev;
+    //     });
+    //     // setDisabled(false);
+    //     // }, 100);
+    //     // setHasTwoShownTiles(false);
+    // };
     // -----------------------------------------------------------
 
-    // handles maximum opened tiles shown
-    const showTileCount = (action: string, match: number) => {
-        // set to match values depending on number of opened tiles
-        if (firstMatch.current === 0) {
-            firstMatch.current = match;
-        } else {
-            secondMatch.current = match;
-        }
-
-        if (firstMatch.current === secondMatch.current) {
-            // check if last match will be added to matchedPairs,
-            // if so, stop the timer
+    const testForMatch = (clickedTileDetails: { matchId: number; tileId: string }) => {
+        if (firstMatch.current.matchId === clickedTileDetails.matchId) {
+            // check if the very last match will be added to matchedPairs,
+            // if so, stop the timer and end the game
             const lastMatchWillBeAdded =
                 Math.abs(matchedPairs?.length * 2) === tileContext.givenTiles?.length - 2;
             if (lastMatchWillBeAdded) {
                 gameContext.setStartGame(false);
+                return true;
             }
 
-            setMatchedPairs([...matchedPairs, firstMatch.current]);
-            return resetTile();
+            // if last pair is not yet added, add recently matched tiles' matchId
+            // and reset everything
+            setMatchedPairs([...matchedPairs, firstMatch.current.matchId]);
+            setHasTwoShownTiles(!hasTwoShownTiles);
+            setKeepOpen("");
+            resetMatches();
+        }
+    };
+
+    useEffect(() => {
+        // resetTile();
+    }, [keepOpen]);
+
+    // handles maximum opened tiles shown
+    const showTileCount = (clickedTileDetails: { matchId: number; tileId: string }) => {
+        // if player flips one more tile, (making it 3 total tiles are flipped),
+        // will automatically close all tiles except for last clicked tile which will be keepOpen
+        if (firstMatch.current.matchId && secondMatch.current.matchId) {
+            resetMatches();
+            firstMatch.current = clickedTileDetails;
+            setHasTwoShownTiles(!hasTwoShownTiles);
+            return setKeepOpen(clickedTileDetails.tileId);
         }
 
-        switch (action) {
-            case "add":
-                count.current++;
-                break;
-            case "subtract":
-                resetMatches();
-                count.current--;
-                break;
+        // if flipped tile is clicked again while it is flipped open,
+        // tile will be flipped back and be removed from tiles that can be currently matched
+        if (secondMatch.current.tileId === clickedTileDetails.tileId) {
+            secondMatch.current = { matchId: 0, tileId: "" };
         }
-        if (count.current >= 2 || count.current < 0) {
-            resetTile();
+
+        if (firstMatch.current.tileId === clickedTileDetails.tileId) {
+            firstMatch.current = { matchId: 0, tileId: "" };
+        }
+        // --------------------------------------------------------------
+
+        // set details of flipped tile to firstMatch
+        if (firstMatch.current.matchId === 0) {
+            return (firstMatch.current = clickedTileDetails);
+        }
+
+        // if firstMatch is already taken, insert details of 2nd flipped
+        // tile to secondMatch
+        if (secondMatch.current.matchId === 0) {
+            secondMatch.current = clickedTileDetails;
+        }
+
+        // if firstMatch and secondMatch has details, check or test if those two match.
+        if (firstMatch.current.matchId && secondMatch.current.matchId) {
+            testForMatch(secondMatch.current);
         }
     };
     // -----------------------------------------------------------
@@ -132,8 +162,8 @@ export default function Tiles() {
                                 gameMode={gameContext.gameMode}
                             >
                                 <Tile
-                                    disabled={disabled}
                                     hasTwoShownTiles={hasTwoShownTiles}
+                                    keepOpen={keepOpen}
                                     tileDetails={givenTile}
                                     showTileCount={showTileCount}
                                 />
