@@ -83,8 +83,11 @@ export default function Tile({
                         className={`w-[100%] h-[100%] rounded-md border-none`}
                     >
                         {gameMode === "images" && (
-                            <img src={tileDetails.image} alt={`image-${tileDetails.id}`} 
-                            className="w-[100%] h-[100%]"/>
+                            <img
+                                src={tileDetails.image}
+                                alt={`image-${tileDetails.id}`}
+                                className="w-[100%] h-[100%]"
+                            />
                         )}
                     </div>
                 )}
