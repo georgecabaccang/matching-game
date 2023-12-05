@@ -3,9 +3,9 @@ import { GameContext } from "../../store/game-context/GameContext";
 
 export interface ITile {
     id: string;
-    img: string;
     matchingId: number;
     color: string;
+    image: string;
 }
 
 export default function Tile({
@@ -49,18 +49,31 @@ export default function Tile({
         }
     };
 
-    const isNumbersGameMode = gameContext.gameMode === "numbers";
+    let gameMode = "";
+
+    switch (gameContext.gameMode) {
+        case "numbers":
+            gameMode = "numbers";
+            break;
+        case "colors":
+            gameMode = "colors";
+            break;
+        case "images":
+            gameMode = "images";
+            break;
+    }
+
     return (
         <div
             className={`flex justify-center items-center h-[100%] w-[100%] rounded-md cursor-pointer transition duration-100 
-            ${showTile && gameContext.gameMode === "numbers" && "bg-blue-200"}`}
+            ${showTile && gameMode !== "colors" && "bg-blue-200"}`}
             onClick={handleTileClick}
         >
             <div
                 className={`transition duration-100 w-[100%] h-[100%] 
                 ${showTile ? "visible" : "invisible"}`}
             >
-                {showTile && isNumbersGameMode ? (
+                {showTile && gameMode === "numbers" ? (
                     <div className="flex justify-center items-center w-[100%] h-[100%] font-semibold text-[2em] ">
                         {tileDetails.matchingId}
                     </div>
@@ -68,7 +81,12 @@ export default function Tile({
                     <div
                         style={{ background: tileDetails.color }}
                         className={`w-[100%] h-[100%] rounded-md border-none`}
-                    ></div>
+                    >
+                        {gameMode === "images" && (
+                            <img src={tileDetails.image} alt={`image-${tileDetails.id}`} 
+                            className="w-[100%] h-[100%]"/>
+                        )}
+                    </div>
                 )}
             </div>
         </div>

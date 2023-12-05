@@ -9,6 +9,7 @@ interface IChoices {
 
 interface IFullScreenModal {
     choices?: IChoices[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setStateAction: Dispatch<SetStateAction<any>>;
     showBack?: boolean;
     head?: string;

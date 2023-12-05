@@ -22,7 +22,7 @@ export default function TileCard({
     gameSize,
     gameMode,
 }: ITileCardProps) {
-    const numbersModeColors = "bg-blue-300 hover:from-blue-300 hover:to-blue-600";
+    const nonColorModes = "bg-blue-300 hover:from-blue-300 hover:to-blue-600";
     const colorsModeColors = "bg-slate-800 hover:from-slate-800 hover:to-black";
 
     // sizing of tiles per game size
@@ -47,7 +47,7 @@ export default function TileCard({
                     ? "bg-transparent scale-75 hover:scale-0 transition-all duration-300 border-none shadow-none pointer-events-none"
                     : "visible"
             }
-            ${gameMode === "numbers" ? numbersModeColors : colorsModeColors}
+            ${gameMode !== "colors" ? nonColorModes : colorsModeColors}
             ${gameSize12} ${gameSize16} ${gameSize20} ${gameSize24}
             `}
         >
