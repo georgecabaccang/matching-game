@@ -48,6 +48,10 @@ export const GameProvider = (props: { children: ReactNode }) => {
             label: "Colors",
             value: "colors",
         },
+        {
+            label: "Images",
+            value: "images",
+        },
     ];
 
     const sizeChoice = [

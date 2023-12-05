@@ -11,29 +11,12 @@ import {
 } from "../utils/static-helpers/break-points";
 
 export default function Tiles() {
-    const [isLoading, setIsLoading] = useState(true);
     const [hasTwoShownTiles, setHasTwoShownTiles] = useState(false);
-    // const [disabled, setDisabled] = useState(false);
     const [matchedPairs, setMatchedPairs] = useState<number[]>([]);
     const [keepOpen, setKeepOpen] = useState("");
 
-    // const count = useRef(0);
-
     const gameContext = useContext(GameContext);
     const tileContext = useContext(TileContext);
-
-    const checkShuffledTiles = async () => {
-        const isShuffled = await tileContext.shuffleTiles();
-        if (isShuffled) {
-            return setIsLoading(false);
-        }
-    };
-
-    // shuffle tiles
-    useEffect(() => {
-        checkShuffledTiles();
-    }, []);
-    // -----------------------------------------------------------
 
     // resets matched pairs when restarting the game
     useEffect(() => {
@@ -47,22 +30,6 @@ export default function Tiles() {
         firstMatch.current = { matchId: 0, tileId: "" };
         secondMatch.current = { matchId: 0, tileId: "" };
     };
-
-    // resets tiles and disables tiles to stop user from clicking
-    // more than two tiles
-    // const resetTile = async () => {
-    //     // count.current = 0;
-    //     // setDisabled(true);
-    //     // resetMatches();
-    //     // setTimeout(() => {
-    //     setHasTwoShownTiles((prev) => {
-    //         return !prev;
-    //     });
-    //     // setDisabled(false);
-    //     // }, 100);
-    //     // setHasTwoShownTiles(false);
-    // };
-    // -----------------------------------------------------------
 
     const testForMatch = (clickedTileDetails: { matchId: number; tileId: string }) => {
         if (firstMatch.current.matchId === clickedTileDetails.matchId) {
@@ -141,9 +108,6 @@ export default function Tiles() {
         gameContext.gameSize === 24 &&
         `${tilesSize24.xxxs} ${tilesSize24.xxs} ${tilesSize24.xs} ${tilesSize24.sm} ${tilesSize24.md} ${tilesSize24.lg} ${tilesSize24.xl} ${tilesSize24.xxl} ${tilesSize24.xxxl} ${tilesSize24.xxxxl}`;
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
     return (
         <>
             <div className={`w-[100%] h-[100%] flex justify-center`}>
